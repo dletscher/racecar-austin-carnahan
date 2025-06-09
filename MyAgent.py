@@ -9,14 +9,21 @@ class Agent:
 		ahead = observations['lidar'][2]
 		right_front = observations['lidar'][3]
 		right = observations['lidar'][4]
-	
 
-		# Implement your rule-based decision-making here
+		on_straightaway = ahead > 1.8 and left_front > 1.5 and right_front > 1.5
+	
+		max_speed = 0.35 if on_straightaway else 0.22
+
 		if speed < 0.05:
 			return ('straight', 'accelerate')
-		if speed > 0.15:
+		if speed > max_speed:
 			return ('straight', 'brake')
-
+		
+		if ahead < 1.5 and speed > 0.23:
+			if left_front > right_front:
+				return ('left', 'brake')
+			else:
+				return ('right', 'brake')
 		if ahead < 1:
 			if left_front > right_front:
 				return ('left', 'brake')
@@ -33,5 +40,4 @@ class Agent:
 			elif right < 1.2:
 				return ('left', 'accelerate')
 			else:
-				return ('straight', 'accelerate')	
-
+				return ('straight', 'accelerate')
