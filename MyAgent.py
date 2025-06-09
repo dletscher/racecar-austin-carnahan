@@ -12,7 +12,7 @@ class Agent:
 
 		on_straightaway = ahead > 1.8 and left_front > 1.5 and right_front > 1.5
 	
-		max_speed = 0.35 if on_straightaway else 0.22
+		max_speed = 0.30 if on_straightaway else 0.22
 
 		# Speed constraints, max/min
 		if speed < 0.05:
